@@ -4,6 +4,11 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+#[macro_use]
+extern crate clap;
+use clap::App;
+
+#[derive(Debug)]
 struct Module {
     name: std::ffi::OsString,
     path: PathBuf,
@@ -17,6 +22,21 @@ impl Module {
 }
 
 fn main() {
+    //let modules = init();
+    let yaml = load_yaml!("cli.yml");
+    let matches = App::from_yaml(yaml).get_matches();
+    
+    match matches.subcommand_name() {
+        Some("readme") => {
+            println!("{}", "test");
+        },
+        Some("list") => {}, //println!("{:?}", modules),
+        None => println!("No subcommand"),
+        _ => println!("Other subcommand used")
+    }
+}
+
+fn init() -> Vec<Module> {
     let yarn = Command::new("yarn")
         .args(&["global", "bin"])
         .output()
@@ -28,7 +48,7 @@ fn main() {
     bin_folder.pop();
 
     let binary_path = Path::new(&bin_folder);
-    get_modules(&binary_path);
+    get_modules(&binary_path)
 }
 
 fn get_modules(path: &Path) -> Vec<Module> {
@@ -36,7 +56,7 @@ fn get_modules(path: &Path) -> Vec<Module> {
 
     for entry in path.read_dir().expect("read_dir call failed") {
         if let Ok(entry) = entry {
-            let module_info = module_information(&entry.file_name(), String::from("description"));
+            let module_info = module_information(&entry.file_name(), &String::from("description"));
             modules.push(Module::new(entry.file_name(), entry.path(), module_info));
         }
     }
@@ -44,9 +64,9 @@ fn get_modules(path: &Path) -> Vec<Module> {
     modules
 }
 
-fn module_information(module: &std::ffi::OsString, subject: String) -> String {
+fn module_information(module: &std::ffi::OsString, subject: &String) -> String {
     let info = Command::new("yarn")
-        .args(&["info", module.to_str().unwrap(), &subject])
+        .args(&["info", module.to_str().unwrap(), subject])
         .output()
         .expect("failed to execute `yarn global bin`, do you have Yarn installed?");
 
@@ -55,10 +75,10 @@ fn module_information(module: &std::ffi::OsString, subject: String) -> String {
 
 // TODO: If markdown file exists
 fn open_readme(module: std::ffi::OsString) {
-    let readme = module_information(&module, String::from("readme"));
+    let readme = module_information(&module, &String::from("readme"));
     let path = create_temp_file(format!("{}.md", module.into_string().unwrap()), readme);    
 
-    let open = Command::new("open")
+    Command::new("open")
         .arg(path.to_str().unwrap())
         .output()
         .expect("failed to open README");

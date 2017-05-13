@@ -3,4 +3,6 @@ name = "packagist"
 version = "0.1.0"
 authors = ["jvhoven <jeffreyvanhoven@gmail.com>"]
 
-[dependencies]
+[dependencies.clap]
+version = "~2.19.0"
+features = ["yaml"]
