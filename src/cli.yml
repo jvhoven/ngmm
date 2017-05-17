@@ -3,16 +3,13 @@ version: "1.0"
 author: Jeffey van Hoven <jeffreyvanhoven@gmail.com>
 about: A cli management tool for global node modules through Yarn
 args:
-    
+    - module:
+        help: Specifies a module to work with
+        index: 1
 subcommands:
     - list:
         help: Lists currently installed global modules
+        about: Lists currently installed global modules
     - readme:
-        help: Read README of a specific module
-        args:
-            - module:
-                short: m
-                long: module
-                help: Prints information about a specific module
-                takes_value: true
-                required: true
+        help: nmm <MODULE> readme
+        about: Opens README of specified module

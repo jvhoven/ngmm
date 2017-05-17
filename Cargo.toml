@@ -1,8 +1,9 @@
 [package]
-name = "packagist"
+name = "nmm"
 version = "0.1.0"
 authors = ["jvhoven <jeffreyvanhoven@gmail.com>"]
 
-[dependencies.clap]
-version = "~2.19.0"
-features = ["yaml"]
+[dependencies]
+clap = { version = "~2.19.0", features = ["yaml"] }
+ansi_term = "0.9.0"
+
