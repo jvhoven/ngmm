@@ -1,6 +1,6 @@
-# NGMM - Node Global Module Manager
+# Node Global Module Manager
 
-Manage your global modules with extra functionality through Yarn.
+Manage your global modules via the command line. Uses Yarn under the hood to retrieve module information.
 
 # API
 
@@ -20,5 +20,5 @@ ARGS:
 SUBCOMMANDS:
     help      Prints this message or the help of the given subcommand(s)
     list      Lists currently installed global modules
-    readme    Opens README of specified module```
+    readme    Opens README of specified module
 
