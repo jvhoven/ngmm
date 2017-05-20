@@ -1,8 +1,8 @@
-# Node Global Module Manager
+## Node Global Module Manager
 
 Manage your global modules via the command line. Uses Yarn under the hood to retrieve module information.
 
-# API
+#### Available commands
 
 ```Node Module Manager 1.0
 A cli management tool for global node modules through Yarn
