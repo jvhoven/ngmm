@@ -8,7 +8,7 @@ Manage your global modules via the command line. Uses Yarn under the hood to ret
 A cli management tool for global node modules through Yarn
 
 USAGE:
-    nmm [module] [SUBCOMMAND]
+    ngmm [module] [SUBCOMMAND]
 
 FLAGS:
     -h, --help       Prints help information
