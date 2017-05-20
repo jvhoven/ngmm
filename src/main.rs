@@ -24,7 +24,7 @@ impl Module {
 
     pub fn readme(&self) {
         let readme = self.get_information(&String::from("readme"));
-        let path = create_temp_file(format!("{}.md", "packagist_temp_file"), readme);    
+        let path = create_temp_file(format!("{}.md", self.name), readme);    
 
         Command::new("open")
             .arg(path.to_str().unwrap())
@@ -70,11 +70,17 @@ fn main() {
             } 
         },
         Some("list") => {
-            println!("Currently installed global modules:");
-            for module in modules {
-                println!("{} {}", Green.paint("*"), module.name);
+            if modules.is_empty() {
+                println!("Currently no installed global modules.");
+            } else {
+                println!("Currently installed global modules:");
+                for module in modules {
+                    println!("{} {}", Green.paint("*"), module.name);
+                }
             }
-        }
+        },
+        None => println!("No command specified, please refer to nmm --help"),
+        _ => println!("No command specified, please refer to nmm --help")
     }
 }
 
